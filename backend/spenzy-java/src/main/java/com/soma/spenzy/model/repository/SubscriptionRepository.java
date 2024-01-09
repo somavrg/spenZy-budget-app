@@ -9,5 +9,5 @@ import java.util.Set;
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
     Set<Subscription> getSubscriptionsByUserId(Long userId);
     Set<Subscription> getSubscriptionsByUserIdAndDateToPayBefore(Long userId, LocalDateTime date);
-    Set<Subscription> getSubscriptionsByUserIdAndDateBetween(Long userId, LocalDateTime start, LocalDateTime end);
+    Set<Subscription> getSubscriptionsByUserIdAndDateToPayBetween(Long userId, LocalDateTime start, LocalDateTime end);
 }
