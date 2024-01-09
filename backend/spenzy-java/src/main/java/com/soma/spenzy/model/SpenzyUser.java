@@ -28,10 +28,10 @@ public class SpenzyUser {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private List<Income> incomes = new ArrayList<>();
+    private Set<Income> incomes = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private List<Expense> expenses = new ArrayList<>();
+    private Set<Expense> expenses = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<Subscription> subscriptions = new HashSet<>();
