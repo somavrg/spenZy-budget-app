@@ -21,7 +21,7 @@ public class Expense {
 
     private String name;
 
-    private ExpenseType type;
+    private ExpenseType expenseType;
 
     private int amount;
 
