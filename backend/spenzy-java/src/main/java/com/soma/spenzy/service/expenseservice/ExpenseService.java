@@ -14,5 +14,5 @@ public interface ExpenseService {
     ResponseEntity<Set<ExpenseDTO>> getExpensesByExpenseType(String token, ExpenseType expenseType);
     ResponseEntity<Set<ExpenseDTO>> getExpensesBetweenDates(String token, LocalDateTime start, LocalDateTime end);
     HttpStatus deleteExpense(Long expenseId);
-    ResponseEntity<ExpenseDTO> addNewExpense(NewExpenseDTO newExpenseDTO);
+    ResponseEntity<NewExpenseDTO> addNewExpense(NewExpenseDTO newExpenseDTO);
 }
