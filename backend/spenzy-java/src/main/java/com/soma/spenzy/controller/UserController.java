@@ -1,8 +1,6 @@
 package com.soma.spenzy.controller;
 
 import com.soma.spenzy.model.DTO.UserDTO;
-import com.soma.spenzy.security.JwtService;
-import com.soma.spenzy.service.mapper.UserMapper;
 import com.soma.spenzy.service.userservice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
