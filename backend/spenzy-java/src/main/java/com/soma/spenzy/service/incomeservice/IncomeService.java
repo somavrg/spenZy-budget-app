@@ -12,5 +12,5 @@ public interface IncomeService {
     ResponseEntity<Set<IncomeDTO>> getAllIncomes(String token);
     ResponseEntity<Set<IncomeDTO>> getIncomesBetweenDates(String token, LocalDateTime start, LocalDateTime end);
     HttpStatus deleteIncome(Long incomeId);
-    ResponseEntity<NewIncomeDTO> addNewExpense(NewIncomeDTO newIncomeDTO);
+    ResponseEntity<NewIncomeDTO> addNewIncome(NewIncomeDTO newIncomeDTO);
 }
