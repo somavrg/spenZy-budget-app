@@ -43,9 +43,9 @@ public class AuthenticationService {
 
         authenticationManager.authenticate(upat);
 
-        UserDetails companyUser = appUserDetailsService.loadUserByUsername(userCredentialsDTO.email());
+        UserDetails spenzyUser = appUserDetailsService.loadUserByUsername(userCredentialsDTO.email());
 
-        String jwtToken = jwtService.generateToken(companyUser);
+        String jwtToken = jwtService.generateToken(spenzyUser);
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
