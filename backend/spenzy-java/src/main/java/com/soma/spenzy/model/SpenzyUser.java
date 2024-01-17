@@ -27,6 +27,9 @@ public class SpenzyUser {
 
     private String password;
 
+    @Enumerated
+    private SpenzyUserRole userRole;
+
     @OneToMany(mappedBy = "user")
     private Set<Income> incomes = new HashSet<>();
 
