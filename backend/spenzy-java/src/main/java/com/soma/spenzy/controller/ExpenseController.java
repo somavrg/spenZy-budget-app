@@ -23,31 +23,31 @@ public class ExpenseController {
 
     @GetMapping
     public ResponseEntity<Set<ExpenseDTO>> getAllExpenses(@RequestHeader("Authorization") String token) {
-        return expenseService.getAllExpenses(token);
+        return new ResponseEntity<>(expenseService.getAllExpenses(token), HttpStatus.OK) ;
     }
 
-    // ?
+    // ? still question how it should look like
     @GetMapping("/type")
     public ResponseEntity<Set<ExpenseDTO>> getAllExpensesByExpenseType(@RequestHeader("Authorization") String token,
                                                                        @RequestBody  ExpenseType expenseType) {
-        return expenseService.getExpensesByExpenseType(token, expenseType);
+        return new ResponseEntity<>(expenseService.getExpensesByExpenseType(token, expenseType), HttpStatus.OK) ;
     }
 
     @GetMapping("/interval")
     public ResponseEntity<Set<ExpenseDTO>> getAllExpensesBetweenDates(@RequestHeader("Authorization") String token,
                                                                       @RequestBody LocalDateTime start,
                                                                       @RequestBody LocalDateTime end) {
-        return expenseService.getExpensesBetweenDates(token, start, end);
+        return new ResponseEntity<>(expenseService.getExpensesBetweenDates(token, start, end), HttpStatus.OK) ;
     }
 
     @PostMapping
     public ResponseEntity<NewExpenseDTO> addNewExpense(@RequestBody NewExpenseDTO newExpense) {
-        return expenseService.addNewExpense(newExpense);
+        return new ResponseEntity<>(expenseService.addNewExpense(newExpense), HttpStatus.CREATED) ;
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteExpenseById(@PathVariable Long id) {
+    public HttpStatus deleteExpenseById(@PathVariable Long id) {
         expenseService.deleteExpense(id);
+        return HttpStatus.NO_CONTENT;
     }
 }
