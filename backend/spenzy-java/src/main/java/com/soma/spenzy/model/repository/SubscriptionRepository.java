@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
-    Set<Subscription> findSubscriptionsByUserId(Long userId);
-    Set<Subscription> findSubscriptionsByUserIdAndDateToPayBefore(Long userId, LocalDateTime date);
-    Set<Subscription> findSubscriptionsByUserIdAndDateToPayBetween(Long userId, LocalDateTime start, LocalDateTime end);
+    Set<Subscription> findSubscriptionsByUser_Email(String email);
+    Set<Subscription> findSubscriptionsByUser_EmailAndDateToPayBefore(String email, LocalDateTime date);
+    Set<Subscription> findSubscriptionsByUser_EmailAndDateToPayBetween(String email, LocalDateTime start, LocalDateTime end);
 }

@@ -7,6 +7,6 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 public interface IncomeRepository extends JpaRepository<Income, Long> {
-    Set<Income> findIncomesByUserId(Long userId);
-    Set<Income> findIncomesByUserIdAndDateBetween(Long userId, LocalDateTime start, LocalDateTime end);
+    Set<Income> findIncomesByUser_Email(String email);
+    Set<Income> findIncomesByUser_EmailAndDateBetween(String email, LocalDateTime start, LocalDateTime end);
 }
