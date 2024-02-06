@@ -24,24 +24,31 @@ public class SubscriptionController {
 
     @GetMapping
     public ResponseEntity<Set<SubscriptionDTO>> getAllSubscriptions(@RequestHeader("Authorization") String token) {
-        return subscriptionService.getAllSubscriptions(token);
+        return new ResponseEntity<>(subscriptionService.getAllSubscriptions(token), HttpStatus.OK) ;
     }
 
+    // ? is it good like that
     @GetMapping("/interval")
     public ResponseEntity<Set<SubscriptionDTO>> getAllSubscriptionsBetweenDates(@RequestHeader("Authorization") String token,
                                                                           @RequestBody LocalDateTime start,
                                                                           @RequestBody LocalDateTime end) {
-        return subscriptionService.getSubscriptionsBetweenDates(token, start, end);
+        return new ResponseEntity<>(subscriptionService.getSubscriptionsBetweenDates(token, start, end), HttpStatus.OK) ;
+    }
+
+    @GetMapping("/before")
+    public ResponseEntity<Set<SubscriptionDTO>> getAllSubscriptionsBeforeDate(@RequestHeader("Authorization") String token,
+                                                                              @RequestBody LocalDateTime date) {
+        return new ResponseEntity<>(subscriptionService.getSubscriptionsBeforeDate(token, date), HttpStatus.OK) ;
     }
 
     @PostMapping
     public ResponseEntity<NewSubscriptionDTO> addNewSubscription(@RequestBody NewSubscriptionDTO newSubscriptionDTO) {
-        return subscriptionService.addNewSubscription(newSubscriptionDTO);
+        return new ResponseEntity<>(subscriptionService.addNewSubscription(newSubscriptionDTO), HttpStatus.CREATED) ;
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteSubscriptionById(@PathVariable Long id) {
+    public HttpStatus deleteSubscriptionById(@PathVariable Long id) {
         subscriptionService.deleteSubscription(id);
+        return HttpStatus.NO_CONTENT;
     }
 }
