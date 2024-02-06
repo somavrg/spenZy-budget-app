@@ -22,24 +22,24 @@ public class IncomeController {
 
     @GetMapping
     public ResponseEntity<Set<IncomeDTO>> getAllIncomes(@RequestHeader("Authorization") String token) {
-        return incomeService.getAllIncomes(token);
+        return new ResponseEntity<>(incomeService.getAllIncomes(token), HttpStatus.OK);
     }
 
     @GetMapping("/interval")
     public ResponseEntity<Set<IncomeDTO>> getAllIncomesBetweenDates(@RequestHeader("Authorization") String token,
                                                                       @RequestBody LocalDateTime start,
                                                                       @RequestBody LocalDateTime end) {
-        return incomeService.getIncomesBetweenDates(token, start, end);
+        return new ResponseEntity<>(incomeService.getIncomesBetweenDates(token, start, end), HttpStatus.OK) ;
     }
 
     @PostMapping
     public ResponseEntity<NewIncomeDTO> addNewIncome(@RequestBody NewIncomeDTO newIncomeDTO) {
-        return incomeService.addNewIncome(newIncomeDTO);
+        return new ResponseEntity<>(incomeService.addNewIncome(newIncomeDTO), HttpStatus.CREATED) ;
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteIncomeById(@PathVariable Long id) {
+    public HttpStatus deleteIncomeById(@PathVariable Long id) {
         incomeService.deleteIncome(id);
+        return HttpStatus.NO_CONTENT;
     }
 }
