@@ -38,21 +38,23 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public Set<SubscriptionDTO> getAllSubscriptions(String token) {
         return subscriptionMapper.toSubscriptionDTOs(subscriptionRepository
-                .findSubscriptionsByUser_Email((jwtService.extractUsername(token.split(" ")[1]))));
+                .findAllByUser_Email(jwtService.extractUsername(token.split(" ")[1])));
     }
 
     // maybe frontend filter
     @Override
     public Set<SubscriptionDTO> getSubscriptionsBetweenDates(String token, LocalDateTime start, LocalDateTime end) {
-        return subscriptionMapper.toSubscriptionDTOs(subscriptionRepository.findSubscriptionsByUser_EmailAndDateToPayBetween(
-                jwtService.extractUsername(token.split(" ")[1]), start, end));
+        return subscriptionMapper.toSubscriptionDTOs(subscriptionRepository
+                .findAllByUser_EmailAndDateToPayBetween(
+                        jwtService.extractUsername(token.split(" ")[1]), start, end));
     }
 
     // maybe frontend filter
     @Override
     public Set<SubscriptionDTO> getSubscriptionsBeforeDate(String token, LocalDateTime date) {
-        return subscriptionMapper.toSubscriptionDTOs(subscriptionRepository.findSubscriptionsByUser_EmailAndDateToPayBefore(
-                jwtService.extractUsername(token.split(" ")[1]), date));
+        return subscriptionMapper.toSubscriptionDTOs(subscriptionRepository
+                .findAllByUser_EmailAndDateToPayBefore(
+                        jwtService.extractUsername(token.split(" ")[1]), date));
     }
 
     @Override

@@ -38,20 +38,20 @@ public class ExpenseServiceImpl implements ExpenseService{
     @Override
     public Set<ExpenseDTO> getAllExpenses(String token) {
         return expenseMapper.toExpenseDTOs(expenseRepository
-                .findExpensesByUser_Email(jwtService.extractUsername(token.split(" ")[1])));
+                .findAllByUser_Email(jwtService.extractUsername(token.split(" ")[1])));
     }
 
     // ? filter endpoints we will see how to implement
     @Override
     public Set<ExpenseDTO> getExpensesByExpenseType(String token, ExpenseType expenseType) {
-        return expenseMapper.toExpenseDTOs(expenseRepository.findExpensesByUser_EmailAndExpenseType(
+        return expenseMapper.toExpenseDTOs(expenseRepository.findAllByUser_EmailAndExpenseType(
                 jwtService.extractUsername(token.split(" ")[1]), expenseType));
     }
 
     // ? filter endpoints we will see how to implement
     @Override
     public Set<ExpenseDTO> getExpensesBetweenDates(String token, LocalDateTime start, LocalDateTime end) {
-        return expenseMapper.toExpenseDTOs(expenseRepository.findExpensesByUser_EmailAndDateBetween(
+        return expenseMapper.toExpenseDTOs(expenseRepository.findAllByUser_EmailAndDateBetween(
                 jwtService.extractUsername(token.split(" ")[1]), start, end
         ));
     }
@@ -62,8 +62,8 @@ public class ExpenseServiceImpl implements ExpenseService{
     }
 
     @Override
-    public NewExpenseDTO addNewExpense(NewExpenseDTO newExpenseDTO) {
-        SpenzyUser user = userRepository.findById(newExpenseDTO.userId())
+    public NewExpenseDTO addNewExpense(String token, NewExpenseDTO newExpenseDTO) {
+        SpenzyUser user = userRepository.findByEmail(jwtService.extractUsername(token.split(" ")[1]))
                 .orElseThrow(() -> new IllegalArgumentException(
                     "ERROR: User with [%s] id not found.".formatted(newExpenseDTO.userId())
                 ));

@@ -36,13 +36,13 @@ public class IncomeServiceImpl implements IncomeService {
     @Override
     public Set<IncomeDTO> getAllIncomes(String token) {
         return incomeMapper.toIncomeDTOs(incomeRepository
-                .findIncomesByUser_Email(jwtService.extractUsername(token.split(" ")[1])));
+                .findAllByUser_Email(jwtService.extractUsername(token.split(" ")[1])));
     }
 
     @Override
     public Set<IncomeDTO> getIncomesBetweenDates(String token, LocalDateTime start, LocalDateTime end) {
         return incomeMapper.toIncomeDTOs(incomeRepository
-                .findIncomesByUser_EmailAndDateBetween(
+                .findAllByUser_EmailAndDateBetween(
                         jwtService.extractUsername(token.split(" ")[1]), start, end));
     }
 
