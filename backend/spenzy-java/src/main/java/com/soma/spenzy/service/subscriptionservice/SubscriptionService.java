@@ -10,6 +10,6 @@ public interface SubscriptionService {
     Set<SubscriptionDTO> getAllSubscriptions(String token);
     Set<SubscriptionDTO> getSubscriptionsBetweenDates(String token, LocalDateTime start, LocalDateTime end);
     Set<SubscriptionDTO> getSubscriptionsBeforeDate(String token, LocalDateTime date);
-    NewSubscriptionDTO addNewSubscription(NewSubscriptionDTO newSubscriptionDTO);
+    NewSubscriptionDTO addNewSubscription(String token, NewSubscriptionDTO newSubscriptionDTO);
     void deleteSubscription(Long subscriptionId);
 }

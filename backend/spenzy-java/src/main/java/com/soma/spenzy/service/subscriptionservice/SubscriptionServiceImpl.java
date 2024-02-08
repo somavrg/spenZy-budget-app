@@ -63,8 +63,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public NewSubscriptionDTO addNewSubscription(NewSubscriptionDTO newSubscriptionDTO) {
-        SpenzyUser user = userRepository.findById(newSubscriptionDTO.userId())
+    public NewSubscriptionDTO addNewSubscription(String token, NewSubscriptionDTO newSubscriptionDTO) {
+        SpenzyUser user = userRepository.findByEmail(jwtService.extractUsername(token.split(" ")[1]))
                 .orElseThrow(() -> new IllegalArgumentException(
                         "ERROR: User with [%s] id not found.".formatted(newSubscriptionDTO.userId())
                 ));

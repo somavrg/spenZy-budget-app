@@ -42,8 +42,9 @@ public class SubscriptionController {
     }
 
     @PostMapping
-    public ResponseEntity<NewSubscriptionDTO> addNewSubscription(@RequestBody NewSubscriptionDTO newSubscriptionDTO) {
-        return new ResponseEntity<>(subscriptionService.addNewSubscription(newSubscriptionDTO), HttpStatus.CREATED) ;
+    public ResponseEntity<NewSubscriptionDTO> addNewSubscription(@RequestHeader("Authorization") String token,
+                                                                 @RequestBody NewSubscriptionDTO newSubscriptionDTO) {
+        return new ResponseEntity<>(subscriptionService.addNewSubscription(token, newSubscriptionDTO), HttpStatus.CREATED) ;
     }
 
     @DeleteMapping("/{id}")
