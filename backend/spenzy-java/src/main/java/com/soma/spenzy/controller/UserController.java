@@ -17,22 +17,23 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDTO> addNewUser(@RequestBody UserDTO user) {
-        return userService.addNewUser(user);
+        return new ResponseEntity<>(userService.addNewUser(user), HttpStatus.CREATED);
     }
 
     @GetMapping("/me")
     public ResponseEntity<UserDTO> getUserById(@RequestHeader("Authorization") String token) {
-        return userService.getUserById(token);
+        return new ResponseEntity<>(userService.getUserByEmail(token), HttpStatus.OK);
     }
 
     @PatchMapping
     public ResponseEntity<UserDTO> updateUser(@RequestHeader("Authorization") String token,
                                               @RequestBody UserDTO userUpdate) {
-        return userService.updateUser(token, userUpdate);
+        return new ResponseEntity<>(userService.updateUser(token, userUpdate), HttpStatus.OK);
     }
 
     @DeleteMapping
     public HttpStatus deleteUser(@RequestHeader("Authorization") String token) {
-        return userService.deleteUser(token);
+        userService.deleteUser(token);
+        return HttpStatus.NO_CONTENT;
     }
 }
