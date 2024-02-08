@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public record NewExpenseDTO(
         String name,
-        ExpenseType type,
+        ExpenseType expenseType,
         int amount,
         LocalDateTime date,
         //optional?
