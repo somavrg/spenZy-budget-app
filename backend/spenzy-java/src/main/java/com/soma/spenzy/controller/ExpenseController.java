@@ -41,8 +41,9 @@ public class ExpenseController {
     }
 
     @PostMapping
-    public ResponseEntity<NewExpenseDTO> addNewExpense(@RequestBody NewExpenseDTO newExpense) {
-        return new ResponseEntity<>(expenseService.addNewExpense(newExpense), HttpStatus.CREATED) ;
+    public ResponseEntity<NewExpenseDTO> addNewExpense(@RequestHeader("Authorization") String token,
+                                                       @RequestBody NewExpenseDTO newExpense) {
+        return new ResponseEntity<>(expenseService.addNewExpense(token, newExpense), HttpStatus.CREATED) ;
     }
 
     @DeleteMapping("/{id}")
