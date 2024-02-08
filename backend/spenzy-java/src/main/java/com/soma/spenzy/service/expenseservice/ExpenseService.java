@@ -12,5 +12,5 @@ public interface ExpenseService {
     Set<ExpenseDTO> getExpensesByExpenseType(String token, ExpenseType expenseType);
     Set<ExpenseDTO> getExpensesBetweenDates(String token, LocalDateTime start, LocalDateTime end);
     void deleteExpense(Long expenseId);
-    NewExpenseDTO addNewExpense(NewExpenseDTO newExpenseDTO);
+    NewExpenseDTO addNewExpense(String token, NewExpenseDTO newExpenseDTO);
 }
