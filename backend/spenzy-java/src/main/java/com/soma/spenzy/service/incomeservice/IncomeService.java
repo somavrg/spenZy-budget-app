@@ -10,5 +10,5 @@ public interface IncomeService {
     Set<IncomeDTO> getAllIncomes(String token);
     Set<IncomeDTO> getIncomesBetweenDates(String token, LocalDateTime start, LocalDateTime end);
     void deleteIncome(Long incomeId);
-    NewIncomeDTO addNewIncome(NewIncomeDTO newIncomeDTO);
+    NewIncomeDTO addNewIncome(String token, NewIncomeDTO newIncomeDTO);
 }

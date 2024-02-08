@@ -52,8 +52,8 @@ public class IncomeServiceImpl implements IncomeService {
     }
 
     @Override
-    public NewIncomeDTO addNewIncome(NewIncomeDTO newIncomeDTO) {
-        SpenzyUser user = userRepository.findById(newIncomeDTO.userId())
+    public NewIncomeDTO addNewIncome(String token, NewIncomeDTO newIncomeDTO) {
+        SpenzyUser user = userRepository.findByEmail(jwtService.extractUsername(token.split(" ")[1]))
                 .orElseThrow(() -> new IllegalArgumentException(
                         "ERROR: User with [%s] id not found.".formatted(newIncomeDTO.userId())
                 ));

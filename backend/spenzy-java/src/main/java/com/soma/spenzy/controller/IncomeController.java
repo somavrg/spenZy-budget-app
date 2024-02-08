@@ -33,8 +33,9 @@ public class IncomeController {
     }
 
     @PostMapping
-    public ResponseEntity<NewIncomeDTO> addNewIncome(@RequestBody NewIncomeDTO newIncomeDTO) {
-        return new ResponseEntity<>(incomeService.addNewIncome(newIncomeDTO), HttpStatus.CREATED) ;
+    public ResponseEntity<NewIncomeDTO> addNewIncome(@RequestHeader("Authorization") String token,
+                                                     @RequestBody NewIncomeDTO newIncomeDTO) {
+        return new ResponseEntity<>(incomeService.addNewIncome(token, newIncomeDTO), HttpStatus.CREATED) ;
     }
 
     @DeleteMapping("/{id}")
