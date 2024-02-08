@@ -6,8 +6,6 @@ import com.soma.spenzy.model.repository.UserRepository;
 import com.soma.spenzy.security.JwtService;
 import com.soma.spenzy.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -27,40 +25,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<Set<UserDTO>> getAllUsers() {
-        return new ResponseEntity<>(
-                userMapper.toUserDTOs(new HashSet<>(userRepository.findAll())),
-                HttpStatus.OK);
+    public Set<UserDTO> getAllUsers() {
+        return userMapper.toUserDTOs(new HashSet<>(userRepository.findAll()));
     }
 
     @Override
-    public ResponseEntity<UserDTO> getUserById(String token) {
-        return null;
+    public UserDTO getUserByEmail(String token) {
+        SpenzyUser spenzyUser = userRepository
+                .findByEmail(jwtService.extractUsername(token.split(" ")[1]))
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "ERROR: No user with this email.."
+                ));
+
+        return userMapper.toUserDTO(spenzyUser);
     }
 
     @Override
-    public ResponseEntity<UserDTO> getUserByEmail(String email) {
-        SpenzyUser spenzyUser = userRepository.findByEmail(email).orElseThrow(() ->
-                new RuntimeException("No such user"));
-
-        return new ResponseEntity<>(userMapper.toUserDTO(spenzyUser), HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<UserDTO> addNewUser(UserDTO newUserDTO) {
+    public UserDTO addNewUser(UserDTO newUserDTO) {
         SpenzyUser newUser = userMapper.toSpenzyUser(newUserDTO);
         userRepository.save(newUser);
 
-        return new ResponseEntity<>(newUserDTO, HttpStatus.OK);
+        return newUserDTO;
     }
 
     @Override
-    public ResponseEntity<UserDTO> updateUser(String token, UserDTO userDTO) {
+    public UserDTO updateUser(String token, UserDTO userDTO) {
         return null;
     }
 
     @Override
-    public HttpStatus deleteUser(String token) {
-        return null;
+    public void deleteUser(String token) {
+        userRepository.deleteByEmail(jwtService.extractUsername(token.split(" ")[1]));
     }
 }
