@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
-    Set<Expense> findExpensesByUser_Email(String email);
-    Set<Expense> findExpensesByUser_EmailAndExpenseType(String email, ExpenseType expenseType);
-    Set<Expense> findExpensesByUser_EmailAndDateBetween(String email, LocalDateTime start, LocalDateTime end);
+    Set<Expense> findAllByUser_Email(String email);
+    Set<Expense> findAllByUser_EmailAndExpenseType(String email, ExpenseType expenseType);
+    Set<Expense> findAllByUser_EmailAndDateBetween(String email, LocalDateTime start, LocalDateTime end);
 }
